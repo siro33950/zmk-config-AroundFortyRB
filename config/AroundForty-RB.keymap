@@ -103,6 +103,8 @@
 &none   &none   &none   &none   &none   &trans  &none   &none   &none   &none   &none
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
             >;
+
+            sensor-bindings = <&mouse_move>;
         };
 
         Setting_Layer {
