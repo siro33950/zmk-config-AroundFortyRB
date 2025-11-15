@@ -16,6 +16,19 @@
     combos { compatible = "zmk,combos"; };
 
     macros {
+        mouse_back: mouse_back {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&mkp MB4>;
+            label = "MOUSE_BACK";
+        };
+
+        mouse_forward: mouse_forward {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&mkp MB5>;
+            label = "MOUSE_FORWARD";
+        };
     };
 
     behaviors {
