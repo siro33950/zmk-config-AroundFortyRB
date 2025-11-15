@@ -87,11 +87,13 @@
 
         Scroll_Layer {
             bindings = <
-&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans          &none     &kp LC(LEFT_ARROW)  &kp LC(UP_ARROW)  &kp LC(RIGHT_ARROW)  &none
+&trans  &trans  &trans  &trans  &trans          &mkp MB3  &mkp MB1            &mkp MB2          &to 3                &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &none     &mouse_back         &mouse_forward    &none                &none
+&trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans              &trans            &trans               &trans
             >;
+
+            sensor-bindings = <&scroll_up_down>;
         };
 
         Setting_Layer {
