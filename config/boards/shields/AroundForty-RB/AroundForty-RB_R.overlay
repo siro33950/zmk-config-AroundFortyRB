@@ -1,5 +1,4 @@
 #include "AroundForty-RB.dtsi"
-#include <input/processors.dtsi>
 
 &default_transform {
     col-offset = <6>;
@@ -19,8 +18,6 @@
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        /* Yスクロールだけ反転させる Input Processor 設定 */
-        input-processors = <&zip_scroll_y_scaler (-1) 1>;
     };
 };
 
