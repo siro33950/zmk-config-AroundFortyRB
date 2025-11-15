@@ -20,7 +20,7 @@
         compatible = "zmk,input-listener";
         device = <&trackball>;
         /* Yスクロールだけ反転させる Input Processor 設定 */
-        input-processors = <&zip_scroll_y_scaler -1 1>;
+        input-processors = <&zip_scroll_y_scaler (-1) 1>;
     };
 };
 
