@@ -16,22 +16,28 @@
     combos { compatible = "zmk,combos"; };
 
     macros {
-        to_layer_0: to_layer_0 {
-            compatible = "zmk,behavior-macro-one-param";
-            #binding-cells = <1>;
-            bindings = <&to 0 &macro_param_1to1 &kp MACRO_PLACEHOLDER>;
-            label = "TO_LAYER_0";
+        mouse_back: mouse_back {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&mkp MB4>;
+            label = "MOUSE_BACK";
+        };
+
+        mouse_forward: mouse_forward {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&mkp MB5>;
+            label = "MOUSE_FORWARD";
         };
     };
 
     behaviors {
-        lt_to_layer_0: lt_to_layer_0 {
-            compatible = "zmk,behavior-hold-tap";
-            label = "LAYER_TAP_TO_0";
-            bindings = <&mo>, <&to_layer_0>;
+        mouse_move: behavior_sensor_rotate_mouse_move {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&mmv MOVE_UP>, <&mmv MOVE_DOWN>;
 
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
+            tap-ms = <20>;
         };
 
         scroll_up_down: behavior_sensor_rotate_mouse_wheel_up_down {
@@ -46,95 +52,48 @@
     keymap {
         compatible = "zmk,keymap";
 
-        Mac-Default_Layer {
+        Default_Layer {
             bindings = <
-&kp Q             &kp W         &kp E         &kp R                      &kp T                              &kp Y        &kp U        &kp I          &kp O       &kp P
-&kp A             &kp S         &kp D         &kp F                      &kp G                              &kp H        &kp J        &kp K          &kp L       &kp MINUS
-&mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                      &kp B        &kp LG(LS(NUMBER_4))  &kp N        &kp M        &kp COMMA      &kp PERIOD  &kp SLASH
-&kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI  &mt LEFT_SHIFT LANGUAGE_1  &lt 2 SPACE  &lt 6 LANGUAGE_2      &lt 4 ENTER  &kp AT_SIGN  &kp BACKSPACE  &lt 7 HASH  &kp DELETE
-            >;
-        };
-
-        Win-Default_Layer {
-            bindings = <
-&kp Q             &kp W         &kp E         &kp R                      &kp T                          &kp Y        &kp U        &kp I          &kp O       &kp P
-&kp A             &kp S         &kp D         &kp F                      &kp G                          &kp H        &kp J        &kp K          &kp L       &kp MINUS
-&mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                      &kp B        &kp LG(LS(S))     &kp N        &kp M        &kp COMMA      &kp PERIOD  &kp SLASH
-&kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI  &mt LEFT_SHIFT LANGUAGE_1  &lt 3 SPACE  &lt 6 LANGUAGE_2  &lt 5 ENTER  &kp AT_SIGN  &kp BACKSPACE  &lt 7 HASH  &kp DELETE
-            >;
-        };
-
-        Mac-Function_Layer {
-            bindings = <
-&kp LG(A)  &kp LG(X)     &kp LG(C)    &kp LG(V)  &kp LG(F)          &kp LESS_THAN         &kp GREATER_THAN       &kp CARET        &kp PERCENT    &kp DOLLAR
-&kp TAB    &kp LEFT_GUI  &kp LS(TAB)  &mkp MB1   &mkp MB2           &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp AT_SIGN      &kp AMPERSAND  &kp DOUBLE_QUOTES
-&trans     &trans        &trans       &trans     &mkp MB3   &trans  &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp EXCLAMATION  &kp QUESTION   &kp SQT
-&trans     &trans        &trans       &trans     &trans     &trans  &kp ENTER             &kp COLON              &kp BACKSPACE    &kp BACKSLASH  &kp HASH
+&kp Q           &kp W      &kp E         &kp R     &kp T                      &kp Y        &kp U           &kp I          &kp O       &kp P
+&kp A           &kp S      &kp D         &kp F     &kp G                      &kp H        &kp J           &kp K          &kp L       &lt 2 SEMICOLON
+&kp Z           &kp X      &kp C         &kp V     &kp B      &kp LANGUAGE_2  &kp N        &kp M           &kp COMMA      &kp PERIOD  &kp SLASH
+&kp LEFT_SHIFT  &kp LCTRL  &kp LEFT_ALT  &kp LGUI  &kp SPACE  &kp TAB         &lt 1 ENTER  &kp LANGUAGE_1  &kp BACKSPACE  &kp ESC     &lt 3 TAB
             >;
 
-            sensor-bindings = <&scroll_up_down>;
-        };
-
-        Win-Function_Layer {
-            bindings = <
-&kp LC(A)  &kp LC(X)     &kp LC(C)    &kp LC(V)  &kp LC(LS(V))          &kp LESS_THAN         &kp GREATER_THAN       &kp CARET        &kp PERCENT    &kp DOLLAR
-&kp TAB    &kp LEFT_ALT  &kp LS(TAB)  &mkp MB1   &mkp MB2               &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp AT_SIGN      &kp AMPERSAND  &kp DOUBLE_QUOTES
-&trans     &trans        &trans       &trans     &mkp MB3       &trans  &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp EXCLAMATION  &kp QUESTION   &kp SQT
-&trans     &trans        &trans       &trans     &trans         &trans  &kp ENTER             &kp COLON              &kp BACKSPACE    &kp BACKSLASH  &kp HASH
-            >;
-
-            sensor-bindings = <&scroll_up_down>;
-        };
-
-        Mac-Common_Layer {
-            bindings = <
-&kp ESCAPE      &trans        &trans       &kp LG(UP_ARROW)    &trans                       &kp LG(W)        &kp LG(LEFT_ARROW)  &mkp MB3        &kp LG(RIGHT_ARROW)  &kp HOME
-&kp TAB         &kp LEFT_GUI  &kp LS(TAB)  &kp LG(LEFT_ARROW)  &kp LG(RIGHT_ARROW)          &kp LG(TAB)      &mkp MB1            &kp UP_ARROW    &mkp MB2             &kp PAGE_UP
-&kp LEFT_SHIFT  &trans        &trans       &kp LG(DOWN_ARROW)  &trans               &trans  &kp LG(LS(TAB))  &kp LEFT_ARROW      &kp DOWN_ARROW  &kp RIGHT_ARROW      &kp PAGE_DOWN
-&kp LCTRL       &trans        &trans       &trans              &trans               &trans  &trans           &kp LG(T)           &trans          &trans               &kp END
-            >;
-
-            sensor-bindings = <&scroll_up_down>;
-        };
-
-        Win-Common_Layer {
-            bindings = <
-&kp ESCAPE      &trans        &trans       &kp LG(UP_ARROW)    &trans                       &kp LC(W)          &kp LA(LEFT_ARROW)  &mkp MB3        &kp LA(RIGHT_ARROW)  &kp HOME
-&kp TAB         &kp LEFT_GUI  &kp LS(TAB)  &kp LG(LEFT_ARROW)  &kp LG(RIGHT_ARROW)          &kp LC(PAGE_UP)    &mkp MB1            &kp UP_ARROW    &mkp MB2             &kp PAGE_UP
-&kp LEFT_SHIFT  &trans        &trans       &kp LG(DOWN_ARROW)  &trans               &trans  &kp LC(PAGE_DOWN)  &kp LEFT_ARROW      &kp DOWN_ARROW  &kp RIGHT_ARROW      &kp PAGE_DOWN
-&kp LCTRL       &trans        &trans       &trans              &trans               &trans  &trans             &kp LC(T)           &trans          &trans               &kp END
-            >;
-
-            sensor-bindings = <&scroll_up_down>;
+            sensor-bindings = <&mouse_move>;
         };
 
         Num_Layer {
             bindings = <
-&kp F1   &kp F2   &kp F3  &kp F4  &kp F5           &kp PLUS      &kp MINUS   &kp NUMBER_7   &kp NUMBER_8   &kp NUMBER_9
-&kp F6   &kp F7   &kp F8  &kp F9  &kp F10          &kp EQUAL     &kp COLON   &kp N4         &kp N5         &kp N6
-&kp F11  &kp F12  &trans  &trans  &trans   &trans  &kp ASTERISK  &kp SLASH   &kp NUMBER_1   &kp NUMBER_2   &kp NUMBER_3
-&trans   &trans   &trans  &trans  &trans   &trans  &kp ENTER     &kp DOLLAR  &kp BACKSPACE  &kp AMPERSAND  &kp N0
+&kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4  &kp NUMBER_5          &kp NUMBER_6  &kp NUMBER_7  &kp NUMBER_8      &kp NUMBER_9       &kp NUMBER_0
+&none         &none         &none         &none         &none                 &none         &kp MINUS     &kp EQUAL         &kp GRAVE          &kp SQT
+&none         &none         &none         &none         &none         &trans  &none         &none         &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp BACKSLASH
+&trans        &trans        &trans        &trans        &trans        &trans  &trans        &trans        &trans            &trans             &trans
             >;
+
+            sensor-bindings = <&mouse_move>;
+        };
+
+        Mouse_Layer {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans          &none     &kp LC(LEFT_ARROW)  &kp LC(UP_ARROW)  &kp LC(RIGHT_ARROW)  &none
+&trans  &trans  &trans  &trans  &trans          &mkp MB3  &mkp MB1            &mkp MB2          &none                &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &none     &kp RIGHT_BRACKET   &kp EXCLAMATION   &none                &none
+&trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans              &trans            &trans               &trans
+            >;
+
+            sensor-bindings = <&mouse_move>;
         };
 
         Setting_Layer {
             bindings = <
-&studio_unlock  &trans  &trans  &trans  &trans         &bt BT_SEL 0  &bt BT_SEL 1    &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
-&trans          &trans  &trans  &trans  &trans         &trans        &trans          &trans        &trans        &trans
-&trans          &trans  &trans  &trans  &trans  &to 0  &ind_bat      &trans          &trans        &trans        &bt BT_CLR
-&trans          &trans  &trans  &trans  &trans  &to 1  &bootloader   &studio_unlock  &sys_reset    &trans        &trans
+&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 3  &bt BT_SEL 4  &none           &none   &none           &kp UP_ARROW    &none            &none
+&none         &none         &none         &none         &none           &none   &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &none
+&bt BT_CLR    &none         &none         &none         &none   &trans  &none   &none           &none           &none            &none
+&trans        &trans        &trans        &trans        &trans  &trans  &trans  &trans          &trans          &trans           &trans
             >;
 
-            sensor-bindings = <&scroll_up_down>;
-        };
-
-        AutoMouse_Layer {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans          &trans  &trans    &trans    &trans    &trans
-&trans  &trans  &trans  &trans  &trans          &trans  &mkp MB1  &mkp MB3  &mkp MB2  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans    &trans    &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans    &trans    &trans
-            >;
+            sensor-bindings = <&mouse_move>;
         };
     };
 };
